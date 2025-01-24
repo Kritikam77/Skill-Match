@@ -1,0 +1,13 @@
+# For Node.js backend
+/backend/node_modules
+/backend/.env
+
+# For React/Angular frontend
+/frontend/node_modules
+/frontend/build
+/frontend/.env
+
+# Common files
+.DS_Store
+.idea/
+.vscode/

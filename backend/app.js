@@ -10,9 +10,9 @@ const app = express();
 //cors
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST","OPTIONS"],
-    allowedHeaders: ["Content-Type","Authorization"],
+    origin: `${process.env.FRONTEND_URL}`,
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 

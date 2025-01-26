@@ -33,10 +33,8 @@ const Services = () => {
     try {
       //send user data to backend
       const response = await axios.post(
-        "http://localhost:5123/api/v1/getServices",
-        { service,
-          locations:locArray
-         }
+        `${import.meta.env.VITE_API_URL}/api/v1/getServices`,
+        { service, locations: locArray }
       );
       // console.log(service)
       console.log(response.data.users);

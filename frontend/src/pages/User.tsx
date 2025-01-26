@@ -28,7 +28,7 @@ const User = () => {
         const tokenFetched = await getAccessTokenSilently();
 
         const response = await axios.get(
-          `http://localhost:5123/api/v1/user/${id}`,
+          `${import.meta.env.VITE_API_URL}/api/v1/user/${id}`,
           {
             headers: {
               Authorization: `Bearer ${tokenFetched}`,

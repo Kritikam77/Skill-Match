@@ -7,7 +7,7 @@ import close from "/icons/close.png";
 import edit from "/icons/edit.png";
 import plus from "/icons/plus.png";
 import axios from "axios";
-import DatePicker from "react-multi-date-picker";
+// import DatePicker from "react-multi-date-picker";
 
 const Profile = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -20,8 +20,8 @@ const Profile = () => {
   const [location, setLocation] = useState<string>(); //to manage state to send to BE for location update
   const [token, setToken] = useState<null | string>(null); // to fetch token from auth0 for verification
   const [valueUpdated, setValueUpdated] = useState<boolean>(false); //to show updated desc/service on UI, we put this as dependency in useffect so we see instant change
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [selectedOffDays, setSelectedOffDays] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+  // const [selectedOffDays, setSelectedOffDays] = useState<any[]>([]);
 
   const [userFetched, setUserFetched] = useState({
     bookedOn: [],
@@ -35,7 +35,6 @@ const Profile = () => {
     services: [],
     __v: 0,
   });
-  
 
   //fetch user
   useEffect(() => {
@@ -50,7 +49,7 @@ const Profile = () => {
           setToken(tokenFetched);
 
           const response = await axios.post(
-            "http://localhost:5123/api/v1/profile",
+            `${import.meta.env.VITE_API_URL}/api/v1/profile`,
             sendData,
             {
               headers: {
@@ -120,7 +119,7 @@ const Profile = () => {
       };
       // console.log("hehe ",description)
       await axios.post(
-        "http://localhost:5123/api/v1/updateDescription",
+        `${import.meta.env.VITE_API_URL}/api/v1/updateDescription`,
         sendData,
         {
           headers: {
@@ -145,12 +144,16 @@ const Profile = () => {
         service,
       };
       // console.log("hehe ",description)
-      await axios.post("http://localhost:5123/api/v1/updateService", sendData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/v1/updateService`,
+        sendData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setEditService(false);
       // console.log("user description ", response);
       setValueUpdated(!valueUpdated);
@@ -168,7 +171,7 @@ const Profile = () => {
       };
       // console.log("hehe ",description)
       await axios.post(
-        "http://localhost:5123/api/v1/updateLocation",
+        `${import.meta.env.VITE_API_URL}/api/v1/updateLocation`,
         sendData,
         {
           headers: {
@@ -186,41 +189,42 @@ const Profile = () => {
   };
 
   //send off days to backend
-  const handleSendDates = async () => {
-    try {
-      // console.log("dates array ", selectedOffDays);
-      const sendDates = selectedOffDays.map((date) => {
-        const { year, monthIndex, day } = date;
-        const str =
-          year +
-          "-" +
-          String(monthIndex + 1).padStart(2, "0") +
-          "-" +
-          String(day).padStart(2,"0") +
-          "T12:00:00Z";
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const handleSendDates = async () => {
+  //   try {
+  //     // console.log("dates array ", selectedOffDays);
+  //     const sendDates = selectedOffDays.map((date) => {
+  //       const { year, monthIndex, day } = date;
+  //       const str =
+  //         year +
+  //         "-" +
+  //         String(monthIndex + 1).padStart(2, "0") +
+  //         "-" +
+  //         String(day).padStart(2,"0") +
+  //         "T12:00:00Z";
 
-        return str;
-      });
-      // console.log("send dates ", sendDates);
-      const sendData = {
-        email: user?.email || "",
-        dates: sendDates,
-      };
-      const response = await axios.post(
-        "http://localhost:5123/api/v1/updateOffDays",
-        sendData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error sending user off days: ", error);
-    }
-  };
+  //       return str;
+  //     });
+  //     // console.log("send dates ", sendDates);
+  //     const sendData = {
+  //       email: user?.email || "",
+  //       dates: sendDates,
+  //     };
+  //     const response = await axios.post(
+  //       `${import.meta.env.VITE_API_URL}/api/v1/updateOffDays`,
+  //       sendData,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Error sending user off days: ", error);
+  //   }
+  // };
 
   //please login display
   if (!isAuthenticated) {
@@ -450,10 +454,6 @@ const Profile = () => {
               Send Dates
             </button>
           </div> */}
-
-
-
-
         </div>
       </div>
     );

@@ -1,14 +1,15 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
   const { loginWithRedirect, user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-  const [userData, setUserData] = useState<{
-    email: string;
-    name: string;
-    picture:string;
-  } | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const [userData, setUserData] = useState<{
+  //   email: string;
+  //   name: string;
+  //   picture:string;
+  // } | null>(null);
 
   useEffect(() => {
     const sendData=async()=>{
@@ -22,11 +23,11 @@ const Header = () => {
         };
         const token = await getAccessTokenSilently();
         // console.log("Token from getAccessTokenSilently:", token); 
-        setUserData(userData);
+        // setUserData(userData);
 
         //send user data to backend
         if (userData.email && userData.name) {
-          fetch("http://localhost:5123/api/v1/login", {
+          fetch(`${import.meta.env.VITE_API_URL}/api/v1/login`, {
             method: "POST",
             headers: {
               Authorization: `Bearer ${token}`,

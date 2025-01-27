@@ -21,7 +21,7 @@ export function UseTranslate({minValue,maxValue,step}:UseTranslateOptions){
             direction == "down"
         ) {
           newTranslate = newTranslate + step;
-          console.log("down " +scroll+" "+translate)
+          // console.log("down " +scroll+" "+translate)
         } else if (
           scroll > minValue &&
           scroll < maxValue &&
@@ -29,7 +29,7 @@ export function UseTranslate({minValue,maxValue,step}:UseTranslateOptions){
           translate > -10
         ) {
           newTranslate = newTranslate - step;
-          console.log("up "+ scroll + " " + translate);
+          // console.log("up "+ scroll + " " + translate);
         }
 
     setTranslate(newTranslate)

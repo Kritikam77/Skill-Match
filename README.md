@@ -74,9 +74,9 @@ Skill Match is a web application where users can search for and offer various se
         ```
   4. **Access the Application:**
 
-        - Frontend: Visit http://localhost:5123 (or the port specified in your setup).
+        - Frontend: Visit http://localhost:5173 (or the port specified in your setup).
 
-        - Backend: Visit http://localhost:5000 (or the port specified in your setup).
+        - Backend: Visit http://localhost:5123 (or the port specified in your setup).
     
 ## **Contributing**
 

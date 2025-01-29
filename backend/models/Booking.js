@@ -10,6 +10,14 @@ const BookingSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  charge: {
+    type: Number,
+    required: true,
+  },
+  skill: {
+    type: String,
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

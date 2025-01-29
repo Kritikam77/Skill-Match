@@ -10,6 +10,7 @@ const {
   getUsersByService,
   getUserById,
   addOffDays,
+  bookService,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -22,5 +23,7 @@ router.post("/updateService", authCheck, addUserService);
 router.post("/updateLocation", authCheck, updateUserLocation);
 router.post("/getServices", getUsersByService);
 router.post("/updateOffDays", authCheck, addOffDays);
+router.post("/bookService", authCheck, bookService);
+
 
 module.exports = router;

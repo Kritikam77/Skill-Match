@@ -5,9 +5,26 @@ import photo1 from "/images/1.png";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
+type ServiceType = {
+  id:string | undefined;
+  user:string | undefined,
+  date: Date | null;
+  charge: string | null;
+  skill: string | null;
+};
 const User = () => {
   const { id } = useParams();
-  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+  const { user,getAccessTokenSilently, isAuthenticated } = useAuth0();
+
+  const [serviceState, setServiceState] = useState<ServiceType>({
+    id:id,
+    user:user?.email,
+    date:  null,
+    charge:  null,
+    skill: null,
+  });
+
+  const [bookingText,setBookingText]=useState("");
 
   const [userFetched, setUserFetched] = useState({
     bookedOn: [],
@@ -37,7 +54,7 @@ const User = () => {
           }
         );
 
-        console.log("user fetched ", response.data.user[0]);
+        // console.log("user fetched ", response.data.user[0]);
         setUserFetched((prev) => ({
           ...prev,
           ...response.data.user[0],
@@ -48,12 +65,37 @@ const User = () => {
     };
 
     fetchUser();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  useEffect(() => {
-    console.log("thisss ", userFetched);
-  }, [userFetched]);
+  const bookService=async ()=>{
+    try {
+        const tokenFetched = await getAccessTokenSilently();
+
+        // console.log("text ",serviceState)
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/v1/bookService`,
+        serviceState,
+        {
+          headers: {
+            Authorization: `Bearer ${tokenFetched}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("user booking response ",response);
+      setBookingText(response.data.message);
+    } catch (error) {
+       console.error("Error booking user: ", error);
+    
+    }
+  }
+
+  // useEffect(() => {
+  //   console.log("thisss ", userFetched);
+  // }, [userFetched]);
+
   if (!isAuthenticated) {
     return (
       <div className="bg-bgColor-light h-full w-full flex flex-col font-josefin">
@@ -71,7 +113,7 @@ const User = () => {
     return (
       <div className="bg-bgColor-dark h-full w-full flex flex-col font-josefin text-fontColor-quad">
         <Header />
-        <div className="mt-[10vh] h-[80vh] w-full grid grid-cols-[30%_50%_20%]">
+        <div className="mt-[10vh] h-[80vh] w-full grid grid-cols-[30%_45%_20%]">
           {/* Photo */}
           <div className="overflow-hidden">
             <div className="h-[50%] w-[80%] m-auto mt-5">
@@ -128,9 +170,7 @@ const User = () => {
               <div className="font-bold text-[3.5vh]">Location:</div>
               <div className="text-fontColor-quad mb-5 flex">
                 <span className="mr-5">
-                  <div>
-                    {userFetched.location || "No location added !!"}
-                  </div>
+                  <div>{userFetched.location || "No location added !!"}</div>
                 </span>
               </div>
             </div>
@@ -142,7 +182,56 @@ const User = () => {
             </div>
           </div>
 
-          
+          {/* book service */}
+          <div className="flex flex-col mr-10">
+            <h2 className="font-bold">Book this user</h2>
+            <div className="mt-5">
+              Service: <br />
+              <input
+                type="text"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  // console.log(e.target.value);
+                  setServiceState({ ...serviceState, skill: e.target.value });
+                }}
+                className="text-black"
+              />
+            </div>
+
+            <div className="mt-5">
+              Price: <br />
+              <input
+                type="text"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  // console.log(serviceState)
+                  setServiceState({ ...serviceState, charge: e.target.value });
+                }}
+                className="text-black"
+              />
+            </div>
+
+            <div className="mt-5">
+              Date: <br />
+              <input
+                type="date"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setServiceState({
+                    ...serviceState,
+                    date: e.target.value ? new Date(e.target.value) : null,
+                  });
+                }}
+                className="text-black"
+              />
+            </div>
+
+            <button
+              className="bg-fontColor-prim p-2 rounded-xl text-white mt-10 ml-10"
+              onClick={bookService}
+            >
+              Book Service
+            </button>
+
+            <div className="text-red-400">{bookingText}</div>
+          </div>
         </div>
       </div>
     );

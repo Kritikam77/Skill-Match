@@ -22,7 +22,7 @@ type Booking = {
 };
 
 const Profile = () => {
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently, logout } = useAuth0();
 
   const [editDesc, setEditDesc] = useState<boolean>(false); //to toggle edit desc button
   const [editService, setEditService] = useState<boolean>(false); //to toggle edit service button
@@ -434,31 +434,44 @@ const Profile = () => {
 
         {/* your bookings */}
         <div>
-          <div className="font-bold">Your Bookings</div>
+          {/* bookings */}
+          <div className="h-[85%]">
+            <div className="font-bold">Your Bookings</div>
+            <div>
+              {userFetched?.bookedOn.map((booking: Booking, index: number) => (
+                <div
+                  key={booking._id}
+                  className="mb-4 p-4 border rounded-lg shadow-md"
+                >
+                  <h2 className="font-semibold text-lg">
+                    {index + 1}. Booking for - {booking.skill}
+                  </h2>
+                  <p>Booked By - {booking.bookedBy.name}</p>
+                  <p>
+                    Date -{" "}
+                    {new Date(booking.dateBooked).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </p>
+                  <p>Charge - {booking.charge}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* logout */}
           <div>
-            {userFetched?.bookedOn.map((booking: Booking, index: number) => (
-              <div
-                key={booking._id}
-                className="mb-4 p-4 border rounded-lg shadow-md"
-              >
-                <h2 className="font-semibold text-lg">
-                  {index + 1}. Booking for - {booking.skill}
-                </h2>
-                <p>Booked By - {booking.bookedBy.name}</p>
-                <p>
-                  Date -{" "}
-                  {new Date(booking.dateBooked).toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </p>
-                <p>Charge - {booking.charge}</p>
-              </div>
-            ))}
+            <button
+              onClick={() =>
+                logout({ logoutParams: { returnTo: window.location.origin } })
+              }
+              className="bg-red-600 p-3 rounded-2xl font-bold text-white"
+            >
+              Logout
+            </button>
           </div>
         </div>
-        
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ type ServiceType = {
 const User = () => {
   const { id } = useParams();
   const { user,getAccessTokenSilently, isAuthenticated } = useAuth0();
+  const [loading,setLoading]=useState(true);
 
   const [serviceState, setServiceState] = useState<ServiceType>({
     id:id,
@@ -42,6 +43,7 @@ const User = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        setLoading(true)
         const tokenFetched = await getAccessTokenSilently();
 
         const response = await axios.get(
@@ -61,6 +63,8 @@ const User = () => {
         }));
       } catch (error) {
         console.error("Error fetching user data: ", error);
+      } finally{
+        setLoading(false)
       }
     };
 
@@ -109,7 +113,19 @@ const User = () => {
     );
   }
 
-  if (userFetched && isAuthenticated) {
+  if (loading) {
+    return (
+      <div className="bg-bgColor-light h-full w-full flex flex-col font-josefin">
+        <Header />
+        <div className="mt-[10vh] h-[80vh] w-full flex">
+          <div className="m-auto text-center font-extrabold text-[5vh] h-full w-full">
+            Loading profile...
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
     return (
       <div className="bg-bgColor-dark h-full w-full flex flex-col font-josefin text-fontColor-quad">
         <Header />
@@ -235,18 +251,8 @@ const User = () => {
         </div>
       </div>
     );
-  }
 
-  return (
-    <div className="bg-bgColor-light h-full w-full flex flex-col font-josefin">
-      <Header />
-      <div className="mt-[10vh] h-[80vh] w-full flex">
-        <div className=" m-auto text-center font-extrabold text-[5vh] h-full w-full ">
-          Loading.............
-        </div>
-      </div>
-    </div>
-  );
+  
 };
 
 export default User;

@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Services from './pages/Services';
 import Profile from './pages/Profile';
 import User from './pages/User';
+import Notifications from './pages/Notifications';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/services" element={<Services />}/>
           <Route path="/profile" element={<Profile />}/>
           <Route path="/user/:id" element={<User />}/>
+          <Route path="/notifications" element={<Notifications />}/>
         </Routes>
       </BrowserRouter>
     </div>

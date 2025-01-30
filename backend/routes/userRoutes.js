@@ -11,6 +11,7 @@ const {
   getUserById,
   addOffDays,
   bookService,
+  getNotifications,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -24,6 +25,7 @@ router.post("/updateLocation", authCheck, updateUserLocation);
 router.post("/getServices", getUsersByService);
 router.post("/updateOffDays", authCheck, addOffDays);
 router.post("/bookService", authCheck, bookService);
+router.get("/notifications", authCheck, getNotifications);
 
 
 module.exports = router;

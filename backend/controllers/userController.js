@@ -1,5 +1,6 @@
 const User = require("./../models/User");
 const Booking = require("./../models/Booking");
+const Notification = require("./../models/Notification");
 
 exports.createUser = async (req, res) => {
   // console.log("request ",req)
@@ -264,16 +265,7 @@ exports.bookService = async (req, res) => {
       charge,
       skill,
     });
-    console.log("backend");
-    console.log(id);
-    console.log(user);
-    console.log(date);
-    console.log(charge);
-    console.log(skill);
-    console.log(serviceProvider);
-    console.log(bookingUser);
-
-    console.log("backend");
+    
 
     // Save the booking
     await newBooking.save();
@@ -288,6 +280,16 @@ exports.bookService = async (req, res) => {
     await serviceProvider.save();
     await bookingUser.save();
 
+    //saving notifications in database
+    const newDate=date.split("T")[0]
+    const notification=new Notification({
+      userId:serviceProvider._id,
+      bookerId:bookingUser._id,
+      message:`You have a booking on date ${newDate} for service " ${skill} " by ${bookingUser.name} for $${charge}.`
+    })
+
+    await notification.save();
+
     // Return a success response
     res
       .status(201)
@@ -301,3 +303,17 @@ exports.bookService = async (req, res) => {
     res.status(500).json({ error: "Error booking user." });
   }
 };
+
+exports.getNotifications=async(req,res)=>{
+  try {
+    const {email}=req.body;
+
+    const notifications=await Notification.find({email}).sort({createdAt:-1})
+
+    res.status(200).json(notifications)
+  } catch (error) {
+    res.status(500).json({
+      error:"Error fetching notifications."
+    })
+  }
+}

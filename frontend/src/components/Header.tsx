@@ -65,7 +65,7 @@ const Header = () => {
         <div className="m-auto font-bold text-[5vh]">SKILL MATCH</div>
 
         <div className="m-auto">
-          <Link to="/">
+          <Link to="/notifications">
             <span>Notifications</span>
           </Link>
         </div>

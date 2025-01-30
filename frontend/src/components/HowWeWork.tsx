@@ -1,17 +1,18 @@
-import { UseTranslate } from "../hooks/useTranslate";
+// import { UseTranslate } from "../hooks/useTranslate";
 import ok from "/images/ok.png"
 import book from "/images/book.png"
 import search from "/images/search.png"
 
 
 const HowWeWork = () => {
-  const translate = UseTranslate({ minValue: 115, maxValue: 155, step: 20 });
+  // const translate = UseTranslate({ minValue: 115, maxValue: 155, step: 20 });
 
   return (
     <div
-      className="flex flex-col absolute top-0 bg-bgColor-light h-[100vh] w-full z-30"
+      // className="flex flex-col absolute top-0 bg-bgColor-light h-[100vh] w-full z-30"
+      className="flex flex-col bg-bgColor-light h-[100vh] w-full z-30"
       style={{
-        transform: `translateY(-${translate}px)`,
+        // transform: `translateY(-${translate}px)`,
       }}
     >
       <div className="m-auto font-oswald text-[10vh] font-extrabold">

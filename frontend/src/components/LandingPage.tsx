@@ -1,17 +1,18 @@
 import Header from "../components/Header";
-import { UseTranslate } from "../hooks/useTranslate";
+// import { UseTranslate } from "../hooks/useTranslate";
 import home from "/images/home.png";
 
 const LandingPage = () => {
-  const translate = UseTranslate({ minValue: -10, maxValue: 70, step: 20 });
+  // const translate = UseTranslate({ minValue: -10, maxValue: 70, step: 20 });
 
   return (
     <div
-      className="z-50 w-full h-auto bg-bgColor flex flex-col absolute top-0 transform transition-all"
+      // className="z-50 w-full h-auto bg-bgColor flex flex-col absolute top-0 transform transition-all"
+      className="z-50 w-full h-auto bg-bgColor flex flex-col transform transition-all"
       style={{
         borderBottomLeftRadius: "8rem",
         borderBottomRightRadius: "8rem",
-        transform: `translateY(-${translate}px)`,
+        // transform: `translateY(-${translate}px)`,
       }}
     >
       <Header />

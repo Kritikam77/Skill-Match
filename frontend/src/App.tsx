@@ -9,7 +9,8 @@ import Notifications from './pages/Notifications';
 function App() {
 
   return (
-    <div className="relative h-[100vh] overflow-hidden ">
+    // <div className="relative h-[100vh] overflow-hidden ">
+    <div className="">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />}/>

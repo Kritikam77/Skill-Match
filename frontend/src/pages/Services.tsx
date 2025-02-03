@@ -28,7 +28,7 @@ const Services = () => {
   const [location, setLocation] = useState("");
   const [locArray, setLocArray] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
-  const [searchClicked, setSearchClicked] = useState(false);
+  const [, setSearchClicked] = useState(false);
 
   //request to backend to fetch users with service
   const fetchServices = async () => {
@@ -49,7 +49,7 @@ const Services = () => {
 
   //call fetchservices on locArray or date change too
   useEffect(() => {
-    console.log("locc ", locArray);
+    // console.log("locc ", locArray);
     fetchServices();
   }, [locArray]);
 
@@ -73,11 +73,11 @@ const Services = () => {
       <Header />
 
       {/* Look for a service title */}
-      <div className="flex font-oswald text-[5vh] font-extrabold mt-5 mb-10">
-        <span className="m-auto">LOOK FOR A SERVICE!</span>
+      <div className="flex font-oswald font-extrabold mt-5 mb-10">
+        <span className="m-auto text-[4vh] md:text-[5vh] ">LOOK FOR A SERVICE!</span>
       </div>
 
-      <div className="w-full h-[70vh] grid grid-cols-[20vw_60vw_20vw]">
+      <div className="w-full h-[70vh] grid md:grid-cols-[20vw_60vw]">
         {/* Location Section */}
         <div className="ml-auto mr-auto h-full w-[90%]">
           {/* Location search bar */}
@@ -116,7 +116,7 @@ const Services = () => {
 
           {/* Clear Location Button */}
           <button
-            className="bg-fontColor-prim p-2 rounded-xl text-white mt-10 ml-10"
+            className="bg-fontColor-prim p-2 rounded-xl text-white mt-10 ml-10 hidden md:block"
             onClick={() => setLocArray([])}
           >
             Clear All
@@ -151,7 +151,7 @@ const Services = () => {
                   <Link
                     to={`/user/${item._id}`}
                     key={index}
-                    className="overflow-hidden bg-white w-[90%] h-[25vh] grid grid-cols-[30%_40%_30%] mb-10 rounded-3xl"
+                    className="overflow-hidden bg-white md:w-[90%] h-[25vh] grid grid-cols-[30%_40%_30%] mb-10 rounded-3xl"
                   >
                     {/* User Image */}
                     <div className="h-[80%] overflow-hidden m-auto">
@@ -189,14 +189,14 @@ const Services = () => {
                   </Link>
                 ))}
               </div>
-            ) : 
+            ) : (
               <div className="text-center">
                 <div className="text-red-600 text-[2vh]">
                   Searching for {service}
                 </div>
                 <div>No Results Found!</div>
               </div>
-            }
+            )}
 
             {/* {searchClicked ? (
               <div className="text-center text-gray-500 text-[2vh]">

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const { loginWithRedirect, user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // const [userData, setUserData] = useState<{
   //   email: string;
   //   name: string;
@@ -49,7 +48,8 @@ const Header = () => {
 
   return (
     <div>
-      <div className="w-[85vw] m-auto flex justify-around h-[12vh] font-oswald ">
+      {/* for big screens */}
+      <div className="w-[85vw] m-auto flex justify-around h-[12vh] font-oswald hidden md:flex">
         <div className="m-auto">
           <Link to="/">
             <span>Home</span>
@@ -80,6 +80,44 @@ const Header = () => {
           )}
         </div>
       </div>
+
+      {/* for small screens */}
+      <div className="w-[100vw] m-auto flex flex-col justify-around h-[15vh] font-oswald md:hidden">
+        <div className="m-auto font-bold text-[5vh]">SKILL MATCH</div>
+
+        <div className="flex">
+          <div className="m-auto">
+            <Link to="/">
+              <span>Home</span>
+            </Link>
+          </div>
+
+          <div className="m-auto">
+            <Link to="/services">
+              <span>Book Service</span>
+            </Link>
+          </div>
+
+          <div className="m-auto">
+            <Link to="/notifications">
+              <span>Notifications</span>
+            </Link>
+          </div>
+
+          <div className="m-auto">
+            {isAuthenticated && user ? (
+              <Link to="/profile">
+                <span>{user.name}</span>
+              </Link>
+            ) : (
+              <button onClick={() => loginWithRedirect()}>Login</button>
+            )}
+          </div>
+
+
+        </div>
+      </div>
+
       <div className="bg-fontColor-tert h-[.1vh] w-[90vw] m-auto">
         {/* empty */}
       </div>

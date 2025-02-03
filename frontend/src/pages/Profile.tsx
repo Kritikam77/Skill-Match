@@ -210,7 +210,7 @@ const Profile = () => {
       <div className="bg-bgColor-light h-full w-full flex flex-col font-josefin">
         <Header />
         <div className="mt-[10vh] h-[80vh] w-full flex">
-          <div className=" m-auto text-center font-extrabold text-[5vh] h-full w-full ">
+          <div className=" m-auto text-center font-extrabold text-[3vh] md:text-[5vh] h-full w-full ">
             Please Login !!
           </div>
         </div>
@@ -223,7 +223,7 @@ const Profile = () => {
       <div className="bg-bgColor-light h-full w-full flex flex-col font-josefin">
         <Header />
         <div className="mt-[10vh] h-[80vh] w-full flex">
-          <div className="m-auto text-center font-extrabold text-[5vh] h-full w-full">
+          <div className="m-auto text-center font-extrabold text-[3vh] md:text-[5vh] h-full w-full">
             Loading profile...
           </div>
         </div>
@@ -234,9 +234,9 @@ const Profile = () => {
   //user display
 
   return (
-    <div className="bg-bgColor-light h-full w-full flex flex-col font-josefin">
+    <div className="bg-bgColor-light h-auto md:h-full w-full flex flex-col font-josefin">
       <Header />
-      <div className="mt-[10vh] h-[80vh] w-full grid grid-cols-[30%_45%_20%]">
+      <div className="mt-[10vh] h-[80vh] w-full flex flex-col md:grid md:grid-cols-[30%_45%_20%]">
         {/* Photo */}
         <div className="overflow-hidden">
           <div className="h-[50%] w-[80%] m-auto mt-5">

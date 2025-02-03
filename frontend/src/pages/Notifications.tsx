@@ -31,7 +31,7 @@ const Notifications = () => {
           },
         }
       );
-      console.log("notifs ", response);
+      // console.log("notifs ", response);
       setNotifications(response.data)
     } catch (error) {
       console.error("Error fetching profile data: ", error);

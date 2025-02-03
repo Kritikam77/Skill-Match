@@ -11,17 +11,21 @@ const Providers = () => {
   return (
     <div
       // className="flex flex-col absolute top-0 bg-bgColor-dark h-auto w-full z-20 mb-10"
-      className="flex flex-col bg-bgColor-dark h-[250vh] w-full z-20 mb-10"
-      style={{
-        // transform: `translateY(-${translate}px)`,
-      }}
+      className="flex flex-col bg-bgColor-dark h-[100vh] md:h-[250vh] w-full z-20 mb-10"
+      style={
+        {
+          // transform: `translateY(-${translate}px)`,
+        }
+      }
     >
-      <div className="flex font-oswald text-[10vh] font-extrabold h-[40vh] ">
-        <span className="m-auto">OUR BEST PROVIDERS !</span>
+      <div className="flex font-oswald font-extrabold h-[40vh] ">
+        <span className="m-auto text-[5vh] md:text-[10vh]">
+          OUR BEST PROVIDERS !
+        </span>
       </div>
       <div className="h-auto grid grid-cols-[49.5%_1%_49.5%] w-[100vw] ">
         {/* left */}
-        <div className="m-auto h-full w-full text-center grid grid-rows-[50vh_50vh_50vh] ">
+        <div className="m-auto h-full w-full text-center grid grid-rows-[20vh_20vh_20vh] md:grid-rows-[50vh_50vh_50vh] ">
           <img
             src={photo1}
             className="m-auto w-[50%] h-auto object-contain object-center border-5 border-black  scale-125 rotate-[2deg]"
@@ -47,8 +51,7 @@ const Providers = () => {
         <div className="bg-black m-auto h-full w-[50%]"></div>
 
         {/* right */}
-        <div className="m-auto h-full w-full text-center">
-          <div className="m-auto h-full w-full text-center grid grid-rows-[50vh_50vh_50vh]">
+        <div className="m-auto h-full w-full text-center grid grid-rows-[20vh_20vh_20vh] md:grid grid-rows-[50vh_50vh_50vh]">
             <img
               src={photo4}
               className="m-auto w-[50%] h-auto object-contain object-center border-5 border-black  scale-125 rotate-[-2deg]"
@@ -70,7 +73,6 @@ const Providers = () => {
                 border: "10px solid black",
               }}
             />
-          </div>
         </div>
       </div>
     </div>
